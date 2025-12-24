@@ -74,6 +74,16 @@
         .dark .attraction-btn.active {
             background-color: rgba(34, 197, 94, 0.2);
         }
+        /* Map Modal Animation */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms, transform 300ms;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -105,7 +115,7 @@
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        <div class="flex-1 flex flex-col h-screen overflow-hidden relative">
             
             <!-- Top Header -->
             <header class="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 transition-colors duration-300 z-10">
@@ -369,41 +379,70 @@
                         </div>
                     </div>
 
-                    <!-- Tab Content: Michelin -->
+                    <!-- [수정됨] Tab Content: Michelin (Clickable Map) -->
                     <div id="michelin" class="tab-content hidden animate-fade-in">
+                        <p class="text-xs text-gray-500 mb-2 text-right"><i class="fa-solid fa-hand-pointer animate-pulse mr-1"></i>리스트를 클릭하면 지도가 열립니다</p>
                         <ul class="space-y-2">
-                            <li class="bg-white dark:bg-gray-800 p-4 rounded shadow flex justify-between items-center">
-                                <span><strong>카오쏘이 쿤 야이</strong> <span class="text-xs text-gray-500">(카오쏘이 전문)</span></span>
+                            <li onclick="openMap('Khao Soi Khun Yai')" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded shadow flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-map-location-dot text-brand-DEFAULT mr-3 text-lg"></i>
+                                    <div>
+                                        <strong>카오쏘이 쿤 야이</strong> <span class="text-xs text-gray-500 block md:inline">(카오쏘이 전문)</span>
+                                    </div>
+                                </div>
                                 <span class="text-brand-DEFAULT text-sm font-bold">~100 THB</span>
                             </li>
-                            <li class="bg-white dark:bg-gray-800 p-4 rounded shadow flex justify-between items-center">
-                                <span><strong>훠언 무안 짜이</strong> <span class="text-xs text-gray-500">(북부 가정식)</span></span>
+                            <li onclick="openMap('Huen Muan Jai')" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded shadow flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-map-location-dot text-brand-DEFAULT mr-3 text-lg"></i>
+                                    <div>
+                                        <strong>훠언 무안 짜이</strong> <span class="text-xs text-gray-500 block md:inline">(북부 가정식)</span>
+                                    </div>
+                                </div>
                                 <span class="text-brand-DEFAULT text-sm font-bold">200~300 THB</span>
                             </li>
-                            <li class="bg-white dark:bg-gray-800 p-4 rounded shadow flex justify-between items-center">
-                                <span><strong>키티 파닛</strong> <span class="text-xs text-gray-500">(고택 레스토랑)</span></span>
+                            <li onclick="openMap('Kiti Panit')" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded shadow flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                                <div class="flex items-center">
+                                    <i class="fa-solid fa-map-location-dot text-brand-DEFAULT mr-3 text-lg"></i>
+                                    <div>
+                                        <strong>키티 파닛</strong> <span class="text-xs text-gray-500 block md:inline">(고택 레스토랑)</span>
+                                    </div>
+                                </div>
                                 <span class="text-brand-DEFAULT text-sm font-bold">중고가</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Tab Content: Cafe -->
+                    <!-- [수정됨] Tab Content: Cafe (Clickable Map) -->
                     <div id="cafe" class="tab-content hidden animate-fade-in">
+                        <p class="text-xs text-gray-500 mb-2 text-right"><i class="fa-solid fa-hand-pointer animate-pulse mr-1"></i>카페를 클릭하면 지도가 열립니다</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="bg-amber-50 dark:bg-gray-800 p-4 rounded shadow border-l-4 border-amber-500">
-                                <h4 class="font-bold text-amber-800 dark:text-amber-400">작업하기 좋은 카페</h4>
-                                <ul class="text-sm list-disc list-inside mt-2 space-y-1">
-                                    <li><strong>아카 아마 프라싱:</strong> 커피 맛 일품, 2층 작업 공간</li>
-                                    <li><strong>옴브라 카페:</strong> 디지털 노마드의 성지</li>
-                                    <li><strong>더반 이터리:</strong> 밤 11시까지 운영 (카공족 추천)</li>
+                                <h4 class="font-bold text-amber-800 dark:text-amber-400 mb-2">작업하기 좋은 카페</h4>
+                                <ul class="text-sm space-y-2">
+                                    <li onclick="openMap('Akha Ama Phrasingh')" class="cursor-pointer hover:text-amber-600 dark:hover:text-amber-300 flex items-center">
+                                        <i class="fa-solid fa-mug-hot w-5"></i> <strong>아카 아마 프라싱</strong>
+                                    </li>
+                                    <li onclick="openMap('Ombra Caffe')" class="cursor-pointer hover:text-amber-600 dark:hover:text-amber-300 flex items-center">
+                                        <i class="fa-solid fa-wifi w-5"></i> <strong>옴브라 카페</strong>
+                                    </li>
+                                    <li onclick="openMap('The Barn Eatery Design')" class="cursor-pointer hover:text-amber-600 dark:hover:text-amber-300 flex items-center">
+                                        <i class="fa-solid fa-moon w-5"></i> <strong>더반 이터리</strong>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="bg-green-50 dark:bg-gray-800 p-4 rounded shadow border-l-4 border-green-500">
-                                <h4 class="font-bold text-green-800 dark:text-green-400">힐링 & 뷰 맛집</h4>
-                                <ul class="text-sm list-disc list-inside mt-2 space-y-1">
-                                    <li><strong>얼리 아울:</strong> 넓은 정원, 캠핑 의자</li>
-                                    <li><strong>펀 포레스트:</strong> 숲속에 있는 듯한 느낌</li>
-                                    <li><strong>로스터리 플래그십:</strong> 님만해민 거리 뷰</li>
+                                <h4 class="font-bold text-green-800 dark:text-green-400 mb-2">힐링 & 뷰 맛집</h4>
+                                <ul class="text-sm space-y-2">
+                                    <li onclick="openMap('Early Owls')" class="cursor-pointer hover:text-green-600 dark:hover:text-green-300 flex items-center">
+                                        <i class="fa-solid fa-tree w-5"></i> <strong>얼리 아울</strong>
+                                    </li>
+                                    <li onclick="openMap('Fern Forest Cafe')" class="cursor-pointer hover:text-green-600 dark:hover:text-green-300 flex items-center">
+                                        <i class="fa-solid fa-leaf w-5"></i> <strong>펀 포레스트</strong>
+                                    </li>
+                                    <li onclick="openMap('Roast8ry Flagship')" class="cursor-pointer hover:text-green-600 dark:hover:text-green-300 flex items-center">
+                                        <i class="fa-solid fa-eye w-5"></i> <strong>로스터리 플래그십</strong>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -558,6 +597,27 @@
 
             </main>
         </div>
+
+        <!-- [추가됨] Map Modal HTML -->
+        <div id="mapModal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-gray-800 w-full max-w-4xl h-[80vh] rounded-lg shadow-2xl relative flex flex-col modal-enter">
+                <!-- Header -->
+                <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white"><i class="fa-solid fa-map-location-dot mr-2 text-brand-DEFAULT"></i>위치 확인</h3>
+                    <button onclick="closeMap()" class="text-gray-500 hover:text-red-500 text-2xl focus:outline-none">&times;</button>
+                </div>
+                <!-- Iframe Container -->
+                <div class="flex-1 bg-gray-200 relative">
+                    <iframe id="mapFrame" class="w-full h-full border-0" allowfullscreen loading="lazy"></iframe>
+                    <!-- Loading Spinner (Hidden by default, can be added if needed) -->
+                </div>
+                <!-- Footer -->
+                <div class="p-3 bg-gray-50 dark:bg-gray-900 text-right">
+                    <p class="text-xs text-gray-500">Google Maps Embed API를 사용합니다.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -676,8 +736,12 @@
             }
             document.getElementById(tabName).classList.remove("hidden");
             document.getElementById(tabName).classList.add("block");
-            evt.currentTarget.classList.add("border-b-2", "border-brand-DEFAULT", "text-brand-DEFAULT", "font-medium");
-            evt.currentTarget.classList.remove("text-gray-500");
+            
+            // Check if evt exists (it might not if called programmatically, though here it is)
+            if(evt) {
+                evt.currentTarget.classList.add("border-b-2", "border-brand-DEFAULT", "text-brand-DEFAULT", "font-medium");
+                evt.currentTarget.classList.remove("text-gray-500");
+            }
         }
 
         // 6. Language Search Filter
@@ -691,6 +755,41 @@
                 } else {
                     rows[i].style.display = "none";
                 }
+            }
+        });
+
+        // 7. [추가됨] Google Map Modal Logic
+        function openMap(placeName) {
+            const modal = document.getElementById('mapModal');
+            const iframe = document.getElementById('mapFrame');
+            // 검색어에 'Chiang Mai'를 붙여 정확도 향상
+            const query = encodeURIComponent(placeName + " Chiang Mai");
+            // Google Maps Embed API (iframe mode)
+            iframe.src = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+            
+            modal.classList.remove('hidden');
+            // Simple animation
+            setTimeout(() => {
+                modal.firstElementChild.classList.add('modal-enter-active');
+            }, 10);
+        }
+
+        function closeMap() {
+            const modal = document.getElementById('mapModal');
+            const iframe = document.getElementById('mapFrame');
+            
+            modal.firstElementChild.classList.remove('modal-enter-active');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                iframe.src = ""; // Stop iframe loading
+            }, 300);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('mapModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMap();
             }
         });
 
